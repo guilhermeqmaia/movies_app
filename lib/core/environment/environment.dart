@@ -1,7 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final environmentProvider = Provider<IEnvironment>((ref) => Environment());
-
 abstract class IEnvironment {
   String get acessToken;
   String get apiKey;

@@ -1,14 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:http/http.dart' as http;
 import 'package:movies_app/core/environment/environment.dart';
-
-final httpServiceProvider = Provider<IHttpService>(
-  (ref) => HttpService(
-    http.Client(),
-    ref.read(environmentProvider),
-  ),
-);
 
 abstract class IHttpService {
   Future get(String url, [Map<String, String>? headers]);

@@ -14,9 +14,19 @@ class HttpService extends IHttpService {
 
   HttpService(this._client, this._environment);
 
+  String getUrl(String url) {
+    if (url.contains('?')) {
+      url = '$url&api_key=${_environment.apiKey}';
+    } else {
+      url = '$url?api_key=${_environment.apiKey}';
+    }
+    return url;
+  }
+
   @override
   Future delete(String url, [Map<String, String>? headers]) {
-    return _client.delete(Uri.parse(url), headers: {
+    return _client
+        .delete(Uri.parse(getUrl(url)), headers: {
       "content-type": "application/json;charset=utf-8",
       "authorization": "Bearer ${_environment.acessToken}",
       ...headers?.map((key, value) => MapEntry(key, value)) ?? {},
@@ -25,7 +35,7 @@ class HttpService extends IHttpService {
 
   @override
   Future get(String url, [Map<String, String>? headers]) {
-    return _client.get(Uri.parse(url), headers: {
+    return _client.get(Uri.parse(getUrl(url)), headers: {
       "content-type": "application/json;charset=utf-8",
       "authorization": "Bearer ${_environment.acessToken}",
       ...headers?.map((key, value) => MapEntry(key, value)) ?? {},
@@ -34,7 +44,7 @@ class HttpService extends IHttpService {
 
   @override
   Future post(String url, [Map<String, String>? headers]) {
-    return _client.post(Uri.parse(url), headers: {
+    return _client.post(Uri.parse(getUrl(url)), headers: {
       "content-type": "application/json;charset=utf-8",
       "authorization": "Bearer ${_environment.acessToken}",
       ...headers?.map((key, value) => MapEntry(key, value)) ?? {},
@@ -43,7 +53,7 @@ class HttpService extends IHttpService {
 
   @override
   Future put(String url, [Map<String, String>? headers]) {
-    return _client.put(Uri.parse(url), headers: {
+    return _client.put(Uri.parse(getUrl(url)), headers: {
       "content-type": "application/json;charset=utf-8",
       "authorization": "Bearer ${_environment.acessToken}",
       ...headers?.map((key, value) => MapEntry(key, value)) ?? {},
